@@ -1,0 +1,12 @@
+Password authentication doesn’t scale well.
+The more services we use, the more passwords we’re forced to remember.
+In the name of security, SaaS applications,
+social networks and other services enforce strict password rules that prevent honest people from signing in.
+Username/password authentication is apparently so effective that it’s a serious barrier to product and service use.
+It’s not the passwords themselves;
+the problem is the scale at which people have to manage and remember usernames and passwords. It’s too much.
+We don’t want to make our products less secure by relaxing our password standards,
+so what are our real options to safely and securely authenticate people and protect their sensitive information?
+There are a handful of ways today, and there are more coming.
+There are even things we can do to make traditional password authentication frictionless and user-friendly.
+Here are the options we realistically have today.
