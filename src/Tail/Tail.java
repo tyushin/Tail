@@ -11,7 +11,8 @@ public class Tail {
     public Tail(Integer characterNumber, Integer stringNumber) {
         if (characterNumber == null && stringNumber == null) {
             this.stringNumber = 10;
-        } else {
+        }
+        else {
             this.characterNumber = characterNumber;
             this.stringNumber = stringNumber;
         }
@@ -34,7 +35,7 @@ public class Tail {
         }
         if (segment2.isEmpty()) {
             resultSegment = segment1;
-        } 
+        }
         else {
             final Integer remainNumber = characterNumber - segment1.size();
             resultSegment.addAll(segment2.subList(segment2.size() - remainNumber, segment2.size()));
@@ -80,7 +81,8 @@ public class Tail {
     public String pickTail(InputStream in) throws IOException {
         if (characterNumber != null) {
             return pickCharacter(in);
-        } else {
+        }
+        else {
             return pickString(in);
         }
     }
