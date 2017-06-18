@@ -1,85 +1,76 @@
 package Tail;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.ArrayDeque;
 
 public class Tail {
 
-    private Integer characterNumber;
-    private Integer stringNumber;
+    private Integer number;
+    private Integer mode; //mode 1 - tail of Characters | mode 2 - tail of Strings
 
-    public Tail(Integer characterNumber, Integer stringNumber) {
-        if (characterNumber == null && stringNumber == null) {
-            this.stringNumber = 10;
+    public Tail(Integer number, Integer mode) {
+        if (number == null && mode == null) {
+            this.number = 10;
+            this.mode = 2;
         }
         else {
-            this.characterNumber = characterNumber;
-            this.stringNumber = stringNumber;
+            this.number = number;
+            this.mode = mode;
         }
     }
 
     private String pickCharacter(InputStream in) throws IOException {
-        ArrayList<Character> segment1 = new ArrayList<>();
-        ArrayList<Character> segment2 = new ArrayList<>();
-        ArrayList<Character> resultSegment = new ArrayList<>();
+        ArrayDeque<Character> queue = new ArrayDeque<>();
+        ArrayDeque<Character> result = new ArrayDeque<>();
         try (InputStreamReader reader = new InputStreamReader(in)) {
             int i = reader.read();
             while (i != -1) {
-                segment2 = segment1;
-                segment1 = new ArrayList<>();
-                for (int j = 0; j < characterNumber && i != -1; j++) {
-                    segment1.add((char) i);
-                    i = reader.read();
-                }
+                queue.addLast((char) i);
+                i = reader.read();
             }
         }
-        if (segment2.isEmpty()) {
-            resultSegment = segment1;
+        if (queue.size() > number){
+            for (int i = 0; i != number; i++){
+                result.addFirst(queue.removeLast());
+            }
         }
         else {
-            final Integer remainNumber = characterNumber - segment1.size();
-            resultSegment.addAll(segment2.subList(segment2.size() - remainNumber, segment2.size()));
-            resultSegment.addAll(segment1);
+            result = queue;
         }
         String resultString = "";
-        for (int k : resultSegment) {
+        for (int k : result) {
             resultString = resultString + (char) k;
         }
         return resultString;
     }
 
     private String pickString(InputStream in) throws IOException {
-        ArrayList<String> segment1 = new ArrayList<>();
-        ArrayList<String> segment2 = new ArrayList<>();
-        ArrayList<String> resultSegment = new ArrayList<>();
+        ArrayDeque<String> queue = new ArrayDeque<>();
+        ArrayDeque<String> result = new ArrayDeque<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             String line = reader.readLine();
             while (line != null) {
-                segment2 = segment1;
-                segment1 = new ArrayList<>();
-                for (int i = 0; i < stringNumber && line != null; i++) {
-                    segment1.add(line);
-                    line = reader.readLine();
-                }
+                queue.addLast(line);
+                line = reader.readLine();
             }
         }
-        if (segment2.isEmpty()) {
-            resultSegment = segment1;
+        if (queue.size() > number){
+            for (int i = 0; i != number; i++){
+                result.addFirst(queue.removeLast());
+            }
         }
         else {
-            final Integer num = stringNumber - segment1.size();
-            resultSegment.addAll(segment2.subList(segment2.size() - num, stringNumber));
-            resultSegment.addAll(segment1);
+            result = queue;
         }
         String resultString = "";
-        for (String line : resultSegment) {
+        for (String line : result) {
             resultString = resultString + line + "\n";
         }
         return resultString.trim();
     }
 
     public String pickTail(InputStream in) throws IOException {
-        if (characterNumber != null) {
+        if (mode == 1) {
             return pickCharacter(in);
         }
         else {

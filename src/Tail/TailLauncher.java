@@ -33,23 +33,26 @@ public class TailLauncher {
         catch (CmdLineException e) {
             System.out.println(e.getMessage());
             System.out.println("java -jar Task2Project.jar [-c num | -n num] [-o ofile] file0 file1 file2 ...");
-            new CmdLineParser(new TailLauncher());
             return;
         }
-        Tail tail = new Tail(characterNumber, stringNumber);
+        Tail tail;
+        if (characterNumber != null){
+            tail = new Tail(characterNumber, 1); //mode 1 - tail of Characters
+        }
+        else {
+            tail = new Tail(stringNumber, 2); //mode 2 - tail of Strings
+        }
         try {
             final OutputStream outputStream = (outputFile == null) ? System.out : new FileOutputStream(outputFile);
             final OutputStreamWriter outputWriter = new OutputStreamWriter(outputStream);
-            StringBuilder outputText = new StringBuilder();
             if (inputFiles != null) {
                 for (String inputFileName : inputFiles) {
-                    outputText = outputText.append(tail.pickFileTail(inputFileName));
+                    outputWriter.write(inputFileName + "\n\n" + tail.pickFileTail(inputFileName) + "\n\n");
                 }
             }
             else {
-                outputText = outputText.append(tail.pickTail(System.in));
+                outputWriter.write(tail.pickTail(System.in));
             }
-            outputWriter.write(outputText.toString());
             outputWriter.close();
         }
         catch (IOException e) {
