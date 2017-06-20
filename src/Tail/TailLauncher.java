@@ -37,10 +37,10 @@ public class TailLauncher {
         }
         Tail tail;
         if (characterNumber != null){
-            tail = new Tail(characterNumber, 1); //mode 1 - tail of Characters
+            tail = new Tail(characterNumber, true);
         }
         else {
-            tail = new Tail(stringNumber, 2); //mode 2 - tail of Strings
+            tail = new Tail(stringNumber, false);
         }
         try {
             final OutputStream outputStream = (outputFile == null) ? System.out : new FileOutputStream(outputFile);
