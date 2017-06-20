@@ -35,7 +35,10 @@ public class TailLauncher {
             System.out.println("java -jar Task2Project.jar [-c num | -n num] [-o ofile] file0 file1 file2 ...");
             return;
         }
-        Tail tail;
+        if (stringNumber == null && characterNumber == null) {
+            stringNumber = 10;
+        }
+            Tail tail;
         if (characterNumber != null){
             tail = new Tail(characterNumber, true);
         }

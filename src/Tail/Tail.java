@@ -9,14 +9,8 @@ public class Tail {
     private Boolean modeChar;
 
     public Tail(Integer number, Boolean modeChar) {
-        if (number == null && modeChar == null) {
-            this.number = 10;
-            this.modeChar = false;
-        }
-        else {
-            this.number = number;
-            this.modeChar = modeChar;
-        }
+        this.number = number;
+        this.modeChar = modeChar;
     }
 
     private String pickCharacter(InputStream in) throws IOException {

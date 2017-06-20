@@ -2,7 +2,3 @@ files\text2.txt
 
 stically have today.
 
-files\text1.txt
-
-
-
